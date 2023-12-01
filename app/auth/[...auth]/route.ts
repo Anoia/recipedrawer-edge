@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { client, auth } from "@/app/edgedb";
+import { client, auth } from "@/app/_stuff/edgedb";
 import e from "@/dbschema/edgeql-js";
 
 export const { GET, POST } = auth.createAuthRouteHandlers({
