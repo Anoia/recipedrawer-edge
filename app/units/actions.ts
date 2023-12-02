@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { auth, e } from "../_stuff/edgedb";
+import { e, getAuthClient } from "../_stuff/edgedb";
 
 export async function createUnit(prevState: any, formData: FormData) {
   const d = {
@@ -10,9 +10,7 @@ export async function createUnit(prevState: any, formData: FormData) {
   };
 
   try {
-    const session = auth.getSession();
-    const loggedIn = await session.isLoggedIn(); //todo redirect if not logged in
-    const authenticatedClient = session.client;
+    const { authenticatedClient } = await getAuthClient(); // maybe redirect w.o login?
 
     await e
       .insert(e.Unit, {

@@ -1,11 +1,8 @@
-import { auth } from "./_stuff/edgedb";
+import { auth, getAuthClient } from "./_stuff/edgedb";
 import { getRecipes } from "./test-actions";
 
 export default async function Home() {
-  const session = auth.getSession();
-
-  const loggedIn = await session.isLoggedIn();
-
+  const { loggedIn, authenticatedClient } = await getAuthClient();
   return (
     <div className="flex flex-col items-center justify-between p-24">
       <h1>Home</h1>
@@ -13,7 +10,7 @@ export default async function Home() {
       {loggedIn ? (
         <>
           <div>You are logged in</div>
-          {session.client.queryJSON("Select global current_user{*}")}
+          {authenticatedClient.queryJSON("Select global current_user{*}")}
           {JSON.stringify(await getRecipes())}
           <a href={auth.getSignoutUrl()}>Signout</a>
         </>

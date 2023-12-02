@@ -1,12 +1,9 @@
 "use server";
-import { auth, e } from "../_stuff/edgedb";
+import { getAuthClient, e } from "../_stuff/edgedb";
 import CreateUnit from "./create_unit";
 
 export default async function Units() {
-  const session = auth.getSession();
-  const loggedIn = await session.isLoggedIn();
-
-  const authenticatedClient = session.client;
+  const { loggedIn, authenticatedClient } = await getAuthClient();
 
   const units = await e
     .select(e.Unit, (unit) => ({

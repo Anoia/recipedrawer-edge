@@ -1,14 +1,14 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { e, auth } from "@/app/_stuff/edgedb";
+import { e, getAuthClient } from "@/app/_stuff/edgedb";
 
 export async function getRecipes() {
-  const session = auth.getSession();
-  if (!(await session.isLoggedIn())) {
+  const { loggedIn, authenticatedClient } = await getAuthClient();
+
+  if (!loggedIn) {
     redirect("/");
   }
-  const authenticatedClient = session.client;
   console.log("getting recipes");
   return await e
     .select(e.Recipe, (recipe) => ({

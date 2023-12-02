@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { Fragment } from "react";
-import { auth } from "@/app/_stuff/edgedb";
+import { auth, getAuthClient } from "@/app/_stuff/edgedb";
 
 export default async function Nav() {
-  const session = auth.getSession();
-  const loggedIn = await session.isLoggedIn();
+  const { loggedIn } = await getAuthClient();
+
   return (
     <div className="bg-slate-700 text-white flex flex-col w-screen items-center justify-center px-20 text-center">
       <Link href="/" className="mt-6 text-4xl font-bold">
