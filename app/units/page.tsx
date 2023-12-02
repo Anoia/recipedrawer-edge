@@ -28,7 +28,13 @@ export default async function Units() {
           );
         })}
       </ul>
-      {loggedIn && <CreateUnit />}
+      {loggedIn && (
+        <>
+          <hr className="my-5" />
+          <h1 className="text-lg my-2">Create new Unit</h1>
+          <CreateUnit />
+        </>
+      )}
     </div>
   );
 }

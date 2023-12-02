@@ -19,7 +19,7 @@ export function StandardInputLabel({
 }: LabelProps) {
   return (
     <label
-      className={`block mb-1 text-sm font-medium text-gray-900 ${className}`}
+      className={`block mb-1 text-sm font-light text-gray-900 ${className}`}
       {...labelProps}
     >
       {children}

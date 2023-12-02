@@ -35,7 +35,7 @@ export default function CreateUnit() {
   }, [state]);
 
   return (
-    <form action={formAction} className="flex items-end space-x-5" id="theform">
+    <form action={formAction} className="flex items-end gap-x-5" id="theform">
       <div>
         <StandardInputLabel htmlFor="short_name">Short Name</StandardInputLabel>
         <StandardInput type="text" id="short_name" name="short_name" required />
