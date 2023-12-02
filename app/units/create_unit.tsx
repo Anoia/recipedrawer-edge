@@ -1,5 +1,6 @@
 "use client";
 import StandardInput, {
+  StandardButton,
   StandardInputLabel,
 } from "../_components/standardComponents/styledcomponents";
 import { useFormState, useFormStatus } from "react-dom";
@@ -15,13 +16,9 @@ function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <button
-      type="submit"
-      aria-disabled={pending}
-      className="hover:bg-teal-800 focus:bg-teal-800 bg-teal-700 text-white py-3 px-12"
-    >
+    <StandardButton type="submit" aria-disabled={pending}>
       Speichern
-    </button>
+    </StandardButton>
   );
 }
 

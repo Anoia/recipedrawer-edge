@@ -1,4 +1,4 @@
-import { InputProps, LabelProps } from "react-html-props";
+import { InputProps, LabelProps, ButtonProps } from "react-html-props";
 
 function StandardInput({ children, className, ...divProps }: InputProps) {
   return (
@@ -26,6 +26,20 @@ export function StandardInputLabel({
     </label>
   );
 }
-//block mb-2 text-sm font-medium text-gray-900
-//bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
+
+export function StandardButton({
+  children,
+  className,
+  ...buttonProps
+}: ButtonProps) {
+  return (
+    <button
+      className={`hover:bg-teal-800 focus:bg-teal-800 bg-teal-700 text-white py-3 px-12 ${className}`}
+      {...buttonProps}
+    >
+      {children}
+    </button>
+  );
+}
+
 export default StandardInput;
