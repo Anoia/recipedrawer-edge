@@ -1,4 +1,5 @@
 import { getAuthClient, e } from "@/app/_stuff/edgedb";
+import { $infer } from "@/dbschema/edgeql-js";
 
 export default async function RecipePage({
   params,
@@ -9,30 +10,26 @@ export default async function RecipePage({
 
   const query = e.select(e.Recipe, (recipe) => ({
     ...e.Recipe["*"],
-    ingredients: {
+    source: {
       id: true,
+      name: true,
+      link: true,
+    },
+    sourceText: recipe.source.name,
+    ingredients: (i) => ({
+      id: true,
+      type: i.__type__.name,
+      index: true,
       ...e.is(e.RecipeIngredient, {
-        testvalue: e.str("sdsd"),
         amount: true,
         extra_info: true,
-        id: true,
-        ingredient: {
-          diet: true,
-          name: true,
-          id: true,
-        },
-        unit: {
-          id: true,
-          short_name: true,
-          long_name: true,
-        },
+        ingredient: { ...e.Ingredient["*"] },
+        unit: { ...e.Unit["*"] },
       }),
-      ...e.is(e.Section, {
-        name: true,
-      }),
-    },
+    }),
     filter_single: e.op(recipe.slug, "=", params.slug),
   }));
+  type result = $infer<typeof query>;
   const recipe = await query.run(authenticatedClient);
 
   return (
