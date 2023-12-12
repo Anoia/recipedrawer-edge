@@ -12,9 +12,13 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Stuff
+## Schema evolutin
 
-to generate the files for the edgedb schema:
+edit schema in `dbschema/default.esdl`
+create migraion: `edge migration create`
+apply migration: `edge migrate`
+
+generate the typescript files for the edgedb schema:
 
 ```bash
 npx @edgedb/generate edgeql-js

@@ -37,14 +37,22 @@ module default {
         required name: str;
         required porions: int16;
         required author: User;
-        multi ingredients: IngredientListElement;
-        multi steps: Step;
+        multi ingredients: IngredientListElement {
+            constraint exclusive;
+        };
+        multi steps: Step {
+            constraint exclusive;
+        };
         description: str;
         image: str;
         cook_time: duration;
         prep_time: duration;
-        source: Source;
-        slug: str;
+        source: Source {
+            constraint exclusive;
+        };
+        required slug: str {
+            constraint exclusive;
+        };
     }
 
     type Unit{
@@ -53,7 +61,7 @@ module default {
     }
 
     type IngredientListElement{
-        index: int16;
+        required index: int16;
     }
 
     type RecipeIngredient extending IngredientListElement{
