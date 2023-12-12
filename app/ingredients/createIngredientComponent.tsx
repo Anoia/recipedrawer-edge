@@ -26,7 +26,7 @@ function SubmitButton() {
   );
 }
 
-export default function CreateIngredient(props: {
+export default function CreateIngredientDialog(props: {
   isOpen: boolean;
   input: string;
   close: () => void;
@@ -176,7 +176,7 @@ export function CreateIngredientButton() {
       <StandardButton onClick={() => setDialogOpen(true)}>
         Neue Zutat
       </StandardButton>
-      <CreateIngredient
+      <CreateIngredientDialog
         isOpen={dialogOpen}
         input={""}
         close={() => setDialogOpen(false)}

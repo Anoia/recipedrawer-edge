@@ -14,6 +14,7 @@ export async function getRecipes() {
     .select(e.Recipe, (recipe) => ({
       id: true,
       name: true,
+      slug: true,
     }))
     .run(authenticatedClient);
 }

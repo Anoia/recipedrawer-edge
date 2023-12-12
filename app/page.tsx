@@ -1,4 +1,4 @@
-import { auth, getAuthClient } from "./_stuff/edgedb";
+import { auth, getAuthClient, e } from "./_stuff/edgedb";
 import { getRecipes } from "./test-actions";
 
 export default async function Home() {
@@ -10,8 +10,14 @@ export default async function Home() {
       {loggedIn ? (
         <>
           <div>You are logged in</div>
-          {authenticatedClient.queryJSON("Select global current_user{*}")}
-          {JSON.stringify(await getRecipes())}
+          <h2>user</h2>
+          <p>
+            {await authenticatedClient.queryJSON(
+              "Select global current_user{*}"
+            )}
+          </p>
+          <h2>recipes</h2>
+          <p>{JSON.stringify(await getRecipes())}</p>
           <a href={auth.getSignoutUrl()}>Signout</a>
         </>
       ) : (
