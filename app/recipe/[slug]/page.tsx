@@ -26,6 +26,9 @@ export default async function RecipePage({
         ingredient: { ...e.Ingredient["*"] },
         unit: { ...e.Unit["*"] },
       }),
+      ...e.is(e.Section, {
+        name: true,
+      }),
     }),
     filter_single: e.op(recipe.slug, "=", params.slug),
   }));
