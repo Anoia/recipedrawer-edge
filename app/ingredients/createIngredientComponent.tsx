@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { StandardButton } from "../_components/standardComponents/styledcomponents";
-import { $Ingredient } from "@/dbschema/edgeql-js/modules/default";
+import { Button } from "@mantine/core";
 import DietDisplay from "../_components/standardComponents/diet";
 import { createIngredient } from "./actions";
 import { useFormState, useFormStatus } from "react-dom";
@@ -16,13 +16,9 @@ function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="text-white bg-slate-500 hover:bg-slate-600 disabled:bg-slate-800  p-3 basis-1/2"
-    >
+    <Button type="submit" disabled={pending}>
       Create
-    </button>
+    </Button>
   );
 }
 
@@ -43,7 +39,7 @@ export default function CreateIngredientDialog(props: {
 
   const handleKey = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key == "Escape") {
-      e.preventDefault;
+      e.preventDefault();
       props.close();
     }
   };
@@ -154,13 +150,13 @@ export default function CreateIngredientDialog(props: {
           </div>
           <div className="flex flex-row-reverse mt-12 space-x-5 space-x-reverse">
             <SubmitButton />
-            <button
+            <Button
+              variant="outline"
               type="button"
-              className="text-white bg-slate-300 hover:bg-slate-400 p-3 basis-1/2"
               onClick={() => props.close()}
             >
               Cancel
-            </button>
+            </Button>
           </div>
         </form>
       </div>
@@ -173,9 +169,7 @@ export function CreateIngredientButton() {
 
   return (
     <>
-      <StandardButton onClick={() => setDialogOpen(true)}>
-        Neue Zutat
-      </StandardButton>
+      <Button onClick={() => setDialogOpen(true)}>Neue Zutat</Button>
       <CreateIngredientDialog
         isOpen={dialogOpen}
         input={""}

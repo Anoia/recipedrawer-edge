@@ -4,6 +4,17 @@ import Link from "next/link";
 import { getAuthClient, e } from "../_stuff/edgedb";
 import DietDisplay from "../_components/standardComponents/diet";
 import { CreateIngredientButton } from "./createIngredientComponent";
+import {
+  Container,
+  Table,
+  TableTbody,
+  TableTd,
+  TableTh,
+  TableThead,
+  TableTr,
+  Text,
+  Title,
+} from "@mantine/core";
 
 export default async function Ingredients() {
   const { loggedIn, authenticatedClient } = await getAuthClient();
@@ -16,33 +27,34 @@ export default async function Ingredients() {
     }))
     .run(authenticatedClient);
 
+  const rows = ingredients.map((i) => (
+    <TableTr key={i.id}>
+      <TableTd>
+        <Link href={`/ingredient/${i.id}`}>{i.name}</Link>
+      </TableTd>
+      <TableTd>
+        <DietDisplay diet={i.diet} />
+      </TableTd>
+    </TableTr>
+  ));
+
   return (
-    <div className="container mx-auto my-12 max-w-4xl">
-      <div className="flex justify-between">
-        <h1 className="text-2xl my-2">Ingredients</h1>
+    <div className="container mx-auto my-24 max-w-xl">
+      <div className="flex justify-between mb-8">
+        <Title order={2}>Ingredients</Title>
         {loggedIn && <CreateIngredientButton />}
       </div>
-      <ul>
-        {ingredients.map((i) => {
-          return (
-            <li key={i.id}>
-              <Link href={`/ingredient/${i.id}`}>
-                {i.name} - <DietDisplay diet={i.diet} />
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-
-      {/* <CreateIngredient
-      isOpen={dialogOpen}
-      input={''}
-      close={() => setDialogOpen(false)}
-      created={(i: ingredient) => {
-        setIngredients((ings) => [i, ...ings])
-        setDialogOpen(false)
-      }}
-    /> */}
+      <div className="container max-w-xs">
+        <Table>
+          <TableThead>
+            <TableTr>
+              <TableTh>Name</TableTh>
+              <TableTh>Diet</TableTh>
+            </TableTr>
+          </TableThead>
+          <TableTbody>{rows}</TableTbody>
+        </Table>
+      </div>
     </div>
   );
 }
