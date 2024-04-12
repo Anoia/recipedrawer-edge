@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="globals.css" pattern="file:app/globals.css" />
+</component>

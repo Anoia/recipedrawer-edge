@@ -3,8 +3,6 @@ import "./globals.css";
 import Nav from "./_components/nav";
 import Footer from "./_components/footer";
 
-import "@mantine/core/styles.css";
-
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { theme } from "@/theme";
 export const metadata: Metadata = {
