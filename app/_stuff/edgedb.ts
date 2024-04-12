@@ -11,7 +11,7 @@ export const auth = createAuth(client, {
 
 export async function getAuthClient() {
   const session = auth.getSession();
-  const loggedIn = await session.isLoggedIn();
+  const loggedIn = await session.isSignedIn();
 
   const authenticatedClient = session.client;
   return { loggedIn, authenticatedClient };
