@@ -1,8 +1,22 @@
+import { Pill } from "@mantine/core";
+
 const styleForDiet = new Map([
-  ["Vegan", "text-green-600"],
-  ["Vegetarian", "text-lime-500"],
-  ["Fish", "text-blue-500"],
-  ["Meat", "text-red-500"],
+  [
+    "Vegan",
+    "text-[color:var(--mantine-color-green-6)] border-[color:var(--mantine-color-green-3)]",
+  ],
+  [
+    "Vegetarian",
+    "text-[color:var(--mantine-color-yellow-6)] border-[color:var(--mantine-color-yellow-3)]",
+  ],
+  [
+    "Fish",
+    "text-[color:var(--mantine-color-blue-6)] border-[color:var(--mantine-color-blue-3)]",
+  ],
+  [
+    "Meat",
+    "text-[color:var(--mantine-color-red-6)] border-[color:var(--mantine-color-red-3)]",
+  ],
 ]);
 
 const nameForDiet = new Map([
@@ -18,9 +32,11 @@ interface DietProps {
 }
 
 export default function DietDisplay({ diet, className = "" }: DietProps) {
-  const dietStyle = styleForDiet.get(diet) || "text-gray-500";
+  const dietStyle = styleForDiet.get(diet) || "";
 
   return (
-    <span className={`${dietStyle} ${className}`}>{nameForDiet.get(diet)}</span>
+    <Pill variant="contrast" className={`${dietStyle} border`}>
+      {nameForDiet.get(diet)}
+    </Pill>
   );
 }
