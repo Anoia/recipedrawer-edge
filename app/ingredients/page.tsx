@@ -5,14 +5,12 @@ import { getAuthClient, e } from "../_stuff/edgedb";
 import DietDisplay from "../_components/standardComponents/diet";
 import { CreateIngredientButton } from "./createIngredientComponent";
 import {
-  Container,
   Table,
   TableTbody,
   TableTd,
   TableTh,
   TableThead,
   TableTr,
-  Text,
   Title,
 } from "@mantine/core";
 
@@ -41,7 +39,7 @@ export default async function Ingredients() {
   return (
     <div className="container mx-auto my-24 max-w-xl">
       <div className="flex justify-between mb-8">
-        <Title order={2}>Ingredients</Title>
+        <Title order={2}>Zutaten</Title>
         {loggedIn && <CreateIngredientButton />}
       </div>
       <div className="container max-w-xs">
@@ -49,7 +47,7 @@ export default async function Ingredients() {
           <TableThead>
             <TableTr>
               <TableTh>Name</TableTh>
-              <TableTh>Diet</TableTh>
+              <TableTh>Diät</TableTh>
             </TableTr>
           </TableThead>
           <TableTbody>{rows}</TableTbody>
