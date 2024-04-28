@@ -1,7 +1,8 @@
 "use server";
 
 import Link from "next/link";
-import { getAuthClient, e } from "../_stuff/edgedb";
+import { getAuthClient } from "../_stuff/edgedb";
+import { getIngredients } from "@/app/_stuff/db";
 import DietDisplay from "../_components/standardComponents/diet";
 import { CreateIngredientButton } from "./createIngredientComponent";
 import {
@@ -17,13 +18,7 @@ import {
 export default async function Ingredients() {
   const { loggedIn, authenticatedClient } = await getAuthClient();
 
-  const ingredients = await e
-    .select(e.Ingredient, (i) => ({
-      id: true,
-      name: true,
-      diet: true,
-    }))
-    .run(authenticatedClient);
+  const ingredients = await getIngredients(authenticatedClient);
 
   const rows = ingredients.map((i) => (
     <TableTr key={i.id}>

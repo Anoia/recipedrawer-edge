@@ -3,21 +3,12 @@
 import { useState } from "react";
 import { Combobox, InputBase, useCombobox } from "@mantine/core";
 
-const groceries = [
-  "🍎 Apples",
-  "🍌 Bananas",
-  "🥦 Broccoli",
-  "🥕 Carrots",
-  "🍫 Chocolate",
-  "🍇 Grapes",
-];
-
-export function Autocomplete() {
+export function Autocomplete(props: { groceries: string[] }) {
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
 
-  const [data, setData] = useState(groceries);
+  const [data, setData] = useState(props.groceries);
   const [value, setValue] = useState<string | null>(null);
   const [search, setSearch] = useState("");
 

@@ -1,17 +1,12 @@
 "use server";
-import { getAuthClient, e } from "../_stuff/edgedb";
+import { getAuthClient } from "../_stuff/edgedb";
 import CreateUnit from "./createUnit";
+import { getUnits } from "@/app/_stuff/db";
 
 export default async function Units() {
   const { loggedIn, authenticatedClient } = await getAuthClient();
 
-  const units = await e
-    .select(e.Unit, (unit) => ({
-      id: true,
-      short_name: true,
-      long_name: true,
-    }))
-    .run(authenticatedClient);
+  const units = await getUnits(authenticatedClient);
 
   return (
     <>
