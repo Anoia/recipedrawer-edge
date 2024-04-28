@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Combobox, InputBase, Modal, useCombobox } from "@mantine/core";
+import { Combobox, Modal, TextInput, useCombobox } from "@mantine/core";
 import { $default } from "@/dbschema/interfaces";
 import Ingredient = $default.Ingredient;
 import Unit = $default.Unit;
@@ -36,12 +36,13 @@ export function IngredientAutocomplete(props: {
   );
 
   useEffect(() => {
-    const r = props.ingredients.filter((item) =>
-      item.name
-        .toLowerCase()
-        .includes((matchResult?.ingredientString ?? "").toLowerCase().trim()),
+    setFuzzyIngredients(
+      props.ingredients.filter((item) =>
+        item.name
+          .toLowerCase()
+          .includes((matchResult?.ingredientString ?? "").toLowerCase().trim()),
+      ),
     );
-    setFuzzyIngredients(r);
   }, [props.ingredients, matchResult]);
 
   useEffect(() => {
@@ -136,8 +137,9 @@ export function IngredientAutocomplete(props: {
         }}
       >
         <Combobox.Target>
-          <InputBase
+          <TextInput
             // rightSection={<Combobox.ClearButton />}
+            label={props.input ? "" : "Neue Zutat hinzufügen"}
             value={userInputString}
             onChange={(event) => {
               combobox.openDropdown();
