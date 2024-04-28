@@ -29,11 +29,6 @@ module default {
         index: int16;
     }
 
-    type Source{
-        name: str;
-        link: str;
-    }
-
     type Recipe{
         required name: str;
         required portions: int16;
@@ -48,9 +43,7 @@ module default {
         image: str;
         cook_time: duration;
         prep_time: duration;
-        source: Source {
-            constraint exclusive;
-        };
+        source: tuple<name:str, link:str>;
         required slug: str {
             constraint exclusive;
         };
