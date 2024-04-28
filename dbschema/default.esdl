@@ -18,6 +18,7 @@ module default {
     type Ingredient{
         required name: str{
         constraint exclusive;
+        constraint min_len_value(1);
     }
         required diet: Diet;
         recipe: Recipe;
