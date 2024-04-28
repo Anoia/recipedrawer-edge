@@ -12,6 +12,15 @@ const initialState = {
   status: "",
 };
 
+export function SubmitButton(props: { children: React.ReactNode }) {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" disabled={pending}>
+      {props.children}
+    </Button>
+  );
+}
+
 export default function CreateIngredientForm(props: {
   opened: boolean;
   input: string;
@@ -26,7 +35,6 @@ export default function CreateIngredientForm(props: {
   }, [props.opened, props.input]);
 
   const [state, formAction] = useFormState(createIngredient, initialState);
-  const { pending } = useFormStatus();
 
   useEffect(() => {
     if (state.status == "Success") {
@@ -81,9 +89,7 @@ export default function CreateIngredientForm(props: {
           </Flex>
         </Radio.Group>
         <div className="flex flex-row-reverse mt-12 space-x-5 space-x-reverse">
-          <Button type="submit" disabled={pending}>
-            Erstellen
-          </Button>
+          <SubmitButton>Erstellen</SubmitButton>
           <Button variant="outline" type="button" onClick={() => props.close()}>
             Abbrechen
           </Button>
