@@ -38,6 +38,7 @@ export default function EditRecipe(props: {
         onSelectIngredient={(ingredient: Ingredient) => {
           setSelectedIngredients([...selectedIngredients, ingredient]);
         }}
+        input={""}
       />
     </>
   );

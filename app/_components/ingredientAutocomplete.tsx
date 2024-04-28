@@ -17,6 +17,7 @@ export type IngredientSelection = {
 };
 
 export function IngredientAutocomplete(props: {
+  input: string;
   ingredients: Ingredient[];
   units: Unit[];
   onSelectIngredient: (ingredient: Ingredient) => void;
@@ -24,7 +25,7 @@ export function IngredientAutocomplete(props: {
   const [matchResult, setMatchResult] =
     useState<Maybe<IngredientSelection>>(undefined);
 
-  const [userInputString, setUserInputString] = useState("");
+  const [userInputString, setUserInputString] = useState(props.input);
 
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
