@@ -102,6 +102,11 @@ export function IngredientAutocomplete(props: {
     );
   }
 
+  useEffect(() => {
+    // we need to wait for options to render before we can select first one
+    combobox.selectFirstOption();
+  }, [userInputString, combobox]);
+
   // for create ingredient modal
   const [opened, { open, close }] = useDisclosure(false);
   const isMobile = useMediaQuery("(max-width: 50em)");
