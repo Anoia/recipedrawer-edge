@@ -37,7 +37,7 @@ export default async function Ingredients() {
   ));
 
   return (
-    <div className="container mx-auto my-24 max-w-xl">
+    <>
       <div className="flex justify-between mb-8">
         <Title order={2}>Zutaten</Title>
         {loggedIn && <CreateIngredientButton />}
@@ -53,6 +53,6 @@ export default async function Ingredients() {
           <TableTbody>{rows}</TableTbody>
         </Table>
       </div>
-    </div>
+    </>
   );
 }

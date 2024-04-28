@@ -4,7 +4,7 @@ import { Autocomplete } from "@/app/_components/autocomplete";
 export default async function CreateRecipe() {
   return (
     <>
-      <Title ta="center" mt={100}>
+      <Title ta="center">
         Welcome to{" "}
         <Text
           inherit

@@ -24,7 +24,7 @@ export default function RootLayout({
         <MantineProvider theme={theme}>
           <div className="flex flex-col h-screen w-screen">
             <Nav />
-            <main className="flex-grow grid grid-cols-1 container mx-auto max-w-4xl">
+            <main className="my-12 p-5 container mx-auto max-w-3xl flex-grow">
               {children}
             </main>
             <Footer />

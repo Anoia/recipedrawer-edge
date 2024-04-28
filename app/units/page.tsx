@@ -14,8 +14,8 @@ export default async function Units() {
     .run(authenticatedClient);
 
   return (
-    <div className="my-12 max-w-4xl">
-      <h1 className="text-2xl my-2">Units</h1>
+    <>
+      <h1 className="text-2xl mb-2">Units</h1>
       <ul>
         {units.map((u) => {
           return (
@@ -32,6 +32,6 @@ export default async function Units() {
           <CreateUnit />
         </>
       )}
-    </div>
+    </>
   );
 }
