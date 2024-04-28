@@ -2,11 +2,13 @@
 import { getAuthClient } from "../_stuff/edgedb";
 import CreateUnit from "./createUnit";
 import { getUnits } from "@/app/_stuff/db";
+import { $default } from "@/dbschema/interfaces";
+import Unit = $default.Unit;
 
 export default async function Units() {
   const { loggedIn, authenticatedClient } = await getAuthClient();
 
-  const units = await getUnits(authenticatedClient);
+  const units: Unit[] = await getUnits(authenticatedClient);
 
   return (
     <>

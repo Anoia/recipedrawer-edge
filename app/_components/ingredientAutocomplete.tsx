@@ -2,26 +2,28 @@
 
 import { useState } from "react";
 import { Combobox, InputBase, useCombobox } from "@mantine/core";
+import { $default } from "@/dbschema/interfaces";
+import Ingredient = $default.Ingredient;
+import Unit = $default.Unit;
 
-export function Autocomplete(props: { groceries: string[] }) {
+export function IngredientAutocomplete(props: {
+  ingredients: Ingredient[];
+  units: Unit[];
+  onSelectIngredient: (ingredient: Ingredient) => void;
+}) {
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
 
-  const [data, setData] = useState(props.groceries);
-  const [value, setValue] = useState<string | null>(null);
   const [search, setSearch] = useState("");
 
-  const exactOptionMatch = data.some((item) => item === search);
-  const filteredOptions = exactOptionMatch
-    ? data
-    : data.filter((item) =>
-        item.toLowerCase().includes(search.toLowerCase().trim()),
-      );
+  const filteredOptions = props.ingredients.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase().trim()),
+  );
 
   const options = filteredOptions.map((item) => (
-    <Combobox.Option value={item} key={item}>
-      {item}
+    <Combobox.Option value={item.name} key={item.id}>
+      {item.name} - {item.diet}
     </Combobox.Option>
   ));
 
@@ -30,15 +32,20 @@ export function Autocomplete(props: { groceries: string[] }) {
       store={combobox}
       withinPortal={false}
       onOptionSubmit={(val) => {
+        console.log(`Option ${val} selected`);
+        const selectedOption = props.ingredients.find(
+          (item) => item.name === val,
+        );
         if (val === "$create") {
-          setData((current) => [...current, search]);
-          setValue(search);
+          // setData((current) => [...current, search]); // TODO create new ingredient
+          console.log("creating new ingredient");
         } else {
-          setValue(val);
-          setSearch(val);
+          if (selectedOption) {
+            props.onSelectIngredient(selectedOption);
+            setSearch("");
+            combobox.closeDropdown();
+          }
         }
-
-        combobox.closeDropdown();
       }}
     >
       <Combobox.Target>
@@ -52,19 +59,23 @@ export function Autocomplete(props: { groceries: string[] }) {
           }}
           onClick={() => combobox.openDropdown()}
           onFocus={() => combobox.openDropdown()}
-          onBlur={() => {
-            combobox.closeDropdown();
-            setSearch(value || "");
+          onBlur={(e) => {
+            if (e.target.value === "$create") {
+              console.log("creating new ingredient");
+            } else {
+              combobox.closeDropdown();
+              setSearch("");
+            }
           }}
           placeholder="Search value"
           rightSectionPointerEvents="none"
         />
       </Combobox.Target>
 
-      <Combobox.Dropdown hidden={search.length < 3}>
+      <Combobox.Dropdown hidden={search.length < 2}>
         <Combobox.Options>
           {options}
-          {!exactOptionMatch && search.trim().length > 0 && (
+          {search.trim().length > 0 && (
             <Combobox.Option value="$create">+ Create {search}</Combobox.Option>
           )}
         </Combobox.Options>

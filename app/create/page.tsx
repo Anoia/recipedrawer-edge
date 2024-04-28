@@ -1,18 +1,39 @@
 "use server";
-import { Title, Text, Anchor, Button } from "@mantine/core";
-import { Autocomplete } from "@/app/_components/autocomplete";
 import { getAuthClient } from "@/app/_stuff/edgedb";
-import { getIngredients } from "@/app/_stuff/db";
+import { getIngredients, getUnits } from "@/app/_stuff/db";
+import { $default } from "@/dbschema/interfaces";
+import Ingredient = $default.Ingredient;
+import Unit = $default.Unit;
+import EditRecipe, { EmptyRecipe } from "@/app/_components/edit";
 
 export default async function CreateRecipe() {
   const { loggedIn, authenticatedClient } = await getAuthClient();
 
-  const ingredients = await getIngredients(authenticatedClient);
+  const ingredients: Ingredient[] = await getIngredients(authenticatedClient);
+  const units: Unit[] = await getUnits(authenticatedClient);
 
   return (
     <>
-      <Title>Create Recipe</Title>
-      <Autocomplete groceries={ingredients.map((i) => i.name)} />
+      <EditRecipe
+        ingredients={ingredients}
+        units={units}
+        recipe={emptyRecipe()}
+        // saveAction={() => {}}
+        // cancel={() => {}}
+      />
     </>
   );
+}
+
+function emptyRecipe(): EmptyRecipe {
+  return {
+    name: "",
+    description: "",
+    image: "",
+    portions: 0,
+    ingredients: [],
+    steps: [],
+    source: null,
+    slug: "",
+  };
 }

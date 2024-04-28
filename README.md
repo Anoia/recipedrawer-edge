@@ -22,6 +22,7 @@ generate the typescript files for the edgedb schema:
 
 ```bash
 npx @edgedb/generate edgeql-js
+npx @edgedb/generate interfaces  
 ```
 
 ## Upgrade edgedb

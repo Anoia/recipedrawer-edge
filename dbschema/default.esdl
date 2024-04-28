@@ -36,7 +36,7 @@ module default {
 
     type Recipe{
         required name: str;
-        required porions: int16;
+        required portions: int16;
         required author: User;
         multi ingredients: IngredientListElement {
             constraint exclusive;
