@@ -24,11 +24,6 @@ module default {
         recipe: Recipe;
     }
 
-    type Step{
-        text:str;
-        index: int16;
-    }
-
     type Recipe{
         required name: str;
         required portions: int16;
@@ -36,9 +31,7 @@ module default {
         multi ingredients: IngredientListElement {
             constraint exclusive;
         };
-        multi steps: Step {
-            constraint exclusive;
-        };
+        multi steps: tuple<index:int16, text:str>;
         description: str;
         image: str;
         cook_time: duration;
