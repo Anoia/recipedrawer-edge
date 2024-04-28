@@ -26,6 +26,7 @@ export default function CreateIngredientForm(props: {
   input: string;
   close: () => void;
 }) {
+  console.log(`props.input: ${props.input}`);
   const [newIngredientName, setNewIngredientName] = useState(props.input);
   const [diet, setDiet] = useState("Vegan");
 
