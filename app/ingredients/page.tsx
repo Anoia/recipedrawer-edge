@@ -34,7 +34,7 @@ export default async function Ingredients() {
   return (
     <>
       <div className="flex justify-between mb-8">
-        <Title order={2}>Zutaten</Title>
+        <Title>Zutaten</Title>
         {loggedIn && <CreateIngredientButton />}
       </div>
       <div className="container max-w-xs">
