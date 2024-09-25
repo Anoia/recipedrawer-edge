@@ -23,7 +23,7 @@ export default function DietDisplay({ diet, className = "" }: DietProps) {
   const dietColor = colorForDiet.get(diet) || "";
 
   return (
-    <Badge variant="outline" color={dietColor}>
+    <Badge variant="outline" color={dietColor} className={className}>
       {nameForDiet.get(diet)}
     </Badge>
   );

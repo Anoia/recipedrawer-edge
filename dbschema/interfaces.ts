@@ -85,8 +85,6 @@ export namespace $default {
   export interface Recipe extends std.$Object {
     "ingredients": IngredientListElement[];
     "author": User;
-    "source"?: Source | null;
-    "steps": Step[];
     "cook_time"?: edgedb.Duration | null;
     "description"?: string | null;
     "image"?: string | null;
@@ -94,6 +92,8 @@ export namespace $default {
     "prep_time"?: edgedb.Duration | null;
     "slug": string;
     "portions": number;
+    "source"?: {name: string, link: string} | null;
+    "steps": {index: number, text: string}[];
   }
   export interface RecipeIngredient extends IngredientListElement {
     "ingredient": Ingredient;
@@ -103,14 +103,6 @@ export namespace $default {
   }
   export interface Section extends IngredientListElement {
     "name": string;
-  }
-  export interface Source extends std.$Object {
-    "link"?: string | null;
-    "name"?: string | null;
-  }
-  export interface Step extends std.$Object {
-    "index"?: number | null;
-    "text"?: string | null;
   }
   export interface Unit extends std.$Object {
     "long_name": string;
@@ -128,8 +120,6 @@ import IngredientListElement = $default.IngredientListElement;
 import Recipe = $default.Recipe;
 import RecipeIngredient = $default.RecipeIngredient;
 import Section = $default.Section;
-import Source = $default.Source;
-import Step = $default.Step;
 import Unit = $default.Unit;
 import User = $default.User;
 import current_user = $default.current_user;
@@ -140,8 +130,6 @@ export type {
   Recipe,
   RecipeIngredient,
   Section,
-  Source,
-  Step,
   Unit,
   User,
   current_user
@@ -544,8 +532,6 @@ export interface types {
     "Recipe": $default.Recipe;
     "RecipeIngredient": $default.RecipeIngredient;
     "Section": $default.Section;
-    "Source": $default.Source;
-    "Step": $default.Step;
     "Unit": $default.Unit;
     "User": $default.User;
     "current_user": $default.current_user;

@@ -15,6 +15,7 @@ export async function getRecipes() {
       id: true,
       name: true,
       slug: true,
+      source: true,
     }))
     .run(authenticatedClient);
 }
