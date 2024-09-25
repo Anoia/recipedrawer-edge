@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Combobox, Modal, TextInput, useCombobox } from "@mantine/core";
-import { $default } from "@/dbschema/interfaces";
+import { $default, RecipeIngredient } from "@/dbschema/interfaces";
 import Ingredient = $default.Ingredient;
 import Unit = $default.Unit;
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
@@ -16,11 +16,13 @@ export type IngredientSelection = {
   extraInfo: Maybe<string>;
 };
 
+export type NewRecipeIngredient = Omit<Omit<RecipeIngredient, "index">, "id">;
+
 export function IngredientAutocomplete(props: {
   input: string;
   ingredients: Ingredient[];
   units: Unit[];
-  onSelectIngredient: (ingredient: Ingredient) => void;
+  onSelectIngredient: (ingredient: NewRecipeIngredient) => void;
 }) {
   const [matchResult, setMatchResult] =
     useState<Maybe<IngredientSelection>>(undefined);
@@ -34,6 +36,9 @@ export function IngredientAutocomplete(props: {
   const [fuzzyIngredients, setFuzzyIngredients] = useState<Array<Ingredient>>(
     props.ingredients,
   );
+
+  const defaultUnit =
+    props.units.find((x) => x.long_name == "Stück") ?? props.units[0];
 
   useEffect(() => {
     setFuzzyIngredients(
@@ -125,11 +130,16 @@ export function IngredientAutocomplete(props: {
           );
           if (val === "$create") {
             open();
-            // setData((current) => [...current, search]); // TODO create new ingredient
-            console.log("creating new ingredient");
           } else {
-            if (selectedOption) {
-              props.onSelectIngredient(selectedOption);
+            if (selectedOption && matchResult) {
+              const result: NewRecipeIngredient = {
+                amount: matchResult.amount,
+                unit: matchResult.unit ?? defaultUnit,
+                ingredient: selectedOption,
+                extra_info: matchResult.extraInfo,
+              };
+
+              props.onSelectIngredient(result);
               setUserInputString("");
               combobox.closeDropdown();
             }
